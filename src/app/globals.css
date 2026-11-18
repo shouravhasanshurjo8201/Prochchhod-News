@@ -2,9 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "SutonnyOMJ";
+  src:
+    local("SutonnyOMJ"),
+    local("Sutonny OMJ"),
+    url("/fonts/SutonnyOMJ.woff2") format("woff2"),
+    url("/fonts/SutonnyOMJ.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --article-font-size: 19px;
+  --font-bengali:
+    "SutonnyOMJ", "SutonnyMJ", var(--font-hind-fallback), sans-serif;
 }
 
 .header-search-trigger {
@@ -39,7 +53,7 @@ body {
   margin: 0;
   background: #f7f6f2;
   color: #1d2427;
-  font-family: var(--font-jakarta), var(--font-hind), sans-serif;
+  font-family: var(--font-jakarta), var(--font-bengali), sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -98,9 +112,9 @@ input:focus-visible {
 
 .brand-wordmark {
   display: inline-block;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: clamp(2.4rem, 5vw, 2.8rem);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.055em;
 }
@@ -138,7 +152,7 @@ input:focus-visible {
   place-items: center;
   border: 1px solid #b52c32;
   color: #b52c32;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-weight: 700;
 }
 
@@ -147,7 +161,7 @@ input:focus-visible {
   min-height: 44px;
   align-items: center;
   color: #343a3b;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 14px;
   transition: color 0.18s ease;
 }
@@ -206,7 +220,7 @@ input:focus-visible {
   outline: 0;
   background: transparent;
   color: inherit;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 13px;
 }
 
@@ -246,7 +260,7 @@ input:focus-visible {
   gap: 14px;
   border-bottom: 1px solid #e8e7e2;
   padding: 13px 15px;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 14px;
   line-height: 1.6;
 }
@@ -287,7 +301,7 @@ input:focus-visible {
   gap: 6px;
   padding-right: 14px;
   color: #b52c32;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 12px;
   font-weight: 600;
 }
@@ -298,7 +312,7 @@ input:focus-visible {
   min-height: 44px;
   align-items: center;
   gap: 9px;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 12px;
 }
 
@@ -312,7 +326,7 @@ input:focus-visible {
   gap: 12px;
   padding-block: 20px 15px;
   color: #707779;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 12px;
 }
 
@@ -378,7 +392,7 @@ input:focus-visible {
 }
 
 .card-title {
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-weight: 600;
   line-height: 1.45;
   transition: color 0.18s ease;
@@ -386,7 +400,7 @@ input:focus-visible {
 
 .category-kicker {
   color: #b52c32;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-weight: 600;
 }
 
@@ -408,7 +422,7 @@ input:focus-visible {
 
 .eyebrow {
   color: #b52c32;
-  font-family: var(--font-jakarta), var(--font-hind), sans-serif;
+  font-family: var(--font-jakarta), var(--font-bengali), sans-serif;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -420,7 +434,7 @@ input:focus-visible {
 }
 
 .section-title {
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 22px;
   font-weight: 600;
   line-height: 1.3;
@@ -449,7 +463,7 @@ input:focus-visible {
   align-items: center;
   gap: 6px;
   color: #b52c32;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 12px;
   font-weight: 600;
 }
@@ -469,7 +483,7 @@ input:focus-visible {
   border: 1px solid #1d2427;
   padding: 0 20px;
   color: #1d2427;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 13px;
   font-weight: 600;
   transition:
@@ -545,7 +559,7 @@ input:focus-visible {
 
 .article-body {
   min-width: 0;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: var(--article-font-size, 19px);
   line-height: 1.9;
 }
@@ -558,7 +572,7 @@ input:focus-visible {
   border: 1px solid #deded8;
   padding: 5px 10px;
   color: #707779;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 11px;
 }
 
@@ -584,7 +598,7 @@ input:focus-visible {
   align-items: center;
   gap: 4px;
   color: #555d5e;
-  font-family: var(--font-hind), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
 }
 
 .dark .footer-link {

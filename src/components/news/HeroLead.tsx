@@ -16,12 +16,12 @@ export default function HeroLead({ article }: { article: NewsArticle }) {
         />
         <span className="hero-image-shade" />
         <span className="hero-image-copy">
-          <span className="mb-3 inline-flex items-center gap-2 text-xs font-medium text-white/85">
+          <span className="mb-3 inline-flex items-center gap-2 text-md font-medium text-white/85">
             <span className="h-px w-6 bg-accent" />
             {article.category || "প্রধান খবর"}
             {article.isLive && <span className="live-tag">LIVE</span>}
           </span>
-          <span className="block max-w-3xl font-bengali text-2xl font-bold leading-[1.42] text-white sm:text-3xl md:text-[2.55rem]">
+          <span className="block max-w-3xl font-bengali text-2xl font-bold leading-[1.42] text-white sm:text-3xl md:text-[2.1rem]">
             {article.title}
           </span>
           {article.description && (

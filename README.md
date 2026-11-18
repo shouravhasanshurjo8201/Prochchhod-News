@@ -125,3 +125,12 @@ src/
 - Route-গুলোর জন্য loading skeleton, empty state এবং error handling রয়েছে।
 - Theme toggle-এর পাশাপাশি browser-এর system theme-ও প্রাথমিক পছন্দ হিসেবে ব্যবহৃত হয়।
 
+### SutonnyOMJ বাংলা ফন্ট
+
+`SutonnyOMJ` বাংলা typography-র primary font হিসেবে সেট করা আছে। নিজস্ব, Unicode-compatible এবং ব্যবহারের অনুমতিযুক্ত font file যোগ করতে `public/fonts/`-এ নিচের যেকোনো একটি নাম ব্যবহার করুন:
+
+- `SutonnyOMJ.woff2` (প্রস্তাবিত)
+- `SutonnyOMJ.ttf`
+
+Font file না থাকলে সাইট স্বয়ংক্রিয়ভাবে `Hind Siliguri` fallback ব্যবহার করবে। `SutonnyMJ` ANSI-encoded file ব্যবহার করলে বাংলা Unicode text ঠিকমতো নাও দেখাতে পারে; তাই Unicode-compatible `SutonnyOMJ` ব্যবহার করুন।
+

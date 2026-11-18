@@ -10,7 +10,7 @@ import "./globals.css";
 const hind = Hind_Siliguri({
   weight: ["400", "500", "600", "700"],
   subsets: ["bengali", "latin"],
-  variable: "--font-hind",
+  variable: "--font-hind-fallback",
   display: "swap",
 });
 
@@ -21,7 +21,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://prochchhod.news"),
+  metadataBase: new URL("https://prochchhod-news-jkcu-nine.vercel.app/"),
   title: {
     default: "প্রচ্ছদ নিউজ | Prochchhod News",
     template: "%s | প্রচ্ছদ নিউজ",
