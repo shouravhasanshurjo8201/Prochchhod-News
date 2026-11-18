@@ -18,15 +18,14 @@
 
 ## প্রযুক্তি
 
-| প্রযুক্তি | ব্যবহার |
-| --- | --- |
-| Next.js 15 App Router | Routing, Server Components, metadata, image optimization |
-| React 19 | UI components |
-| TypeScript | Typed API ও application code |
-| Tailwind CSS 3 | Responsive styling |
-| Next.js Server Actions | Search ও category pagination |
-| Hind Siliguri | বাংলা typography |
-| Plus Jakarta Sans | ইংরেজি typography |
+| প্রযুক্তি              | ব্যবহার                                                  |
+| ---------------------- | -------------------------------------------------------- |
+| Next.js 15 App Router  | Routing, Server Components, metadata, image optimization |
+| React 19               | UI components                                            |
+| TypeScript             | Typed API ও application code                             |
+| Tailwind CSS 3         | Responsive styling                                       |
+| Next.js Server Actions | Search ও category pagination                             |
+| Noto Sans Bengali      | বাংলা ও ইংরেজি typography                                |
 
 ## শুরু করুন
 
@@ -56,22 +55,22 @@ npm run start
 
 ## উপলভ্য scripts
 
-| Command | কাজ |
-| --- | --- |
-| `npm run dev` | Development server চালু করে |
-| `npm run build` | Optimized production build তৈরি করে |
-| `npm run start` | Production server চালু করে |
-| `npm run lint` | ESLint দিয়ে কোড পরীক্ষা করে |
-| `npm run typecheck` | TypeScript type পরীক্ষা করে |
+| Command             | কাজ                                 |
+| ------------------- | ----------------------------------- |
+| `npm run dev`       | Development server চালু করে         |
+| `npm run build`     | Optimized production build তৈরি করে |
+| `npm run start`     | Production server চালু করে          |
+| `npm run lint`      | ESLint দিয়ে কোড পরীক্ষা করে         |
+| `npm run typecheck` | TypeScript type পরীক্ষা করে         |
 
 ## পৃষ্ঠা ও ব্যবহার
 
-| Route | বিবরণ |
-| --- | --- |
-| `/` | প্রধান খবর, ব্রেকিং টিকার, বিভাগ ও সর্বাধিক পঠিত |
-| `/article/[id]` | পূর্ণ সংবাদ, metadata, পড়ার সময়, font controls ও related news |
-| `/category/[slug]` | বিভাগভিত্তিক সংবাদ ও Load More |
-| `/search?q=...` | বাংলা বা ইংরেজি শব্দ দিয়ে সংবাদ অনুসন্ধান |
+| Route              | বিবরণ                                                         |
+| ------------------ | ------------------------------------------------------------- |
+| `/`                | প্রধান খবর, ব্রেকিং টিকার, বিভাগ ও সর্বাধিক পঠিত              |
+| `/article/[id]`    | পূর্ণ সংবাদ, metadata, পড়ার সময়, font controls ও related news |
+| `/category/[slug]` | বিভাগভিত্তিক সংবাদ ও Load More                                |
+| `/search?q=...`    | বাংলা বা ইংরেজি শব্দ দিয়ে সংবাদ অনুসন্ধান                     |
 
 ## API ও ডেটা
 
@@ -79,18 +78,18 @@ API base URL: `https://news........./api/v2`
 
 API fetch, response handling ও revalidation রয়েছে [`src/lib/api.ts`](./src/lib/api.ts)-এ। ব্যবহৃত endpoint:
 
-| Endpoint | ব্যবহার |
-| --- | --- |
-| `GET /health` | API health check |
-| `GET /categories` | Navigation categories |
-| `GET /news/sections` | হোমপেজের editorial sections |
-| `GET /news/latest?limit=5` | ব্রেকিং ও সর্বশেষ খবর |
-| `GET /news/most-read` | সর্বাধিক পঠিত সংবাদ |
-| `GET /news?limit=10` | সাধারণ সংবাদ feed |
-| `GET /category/{slug}?page=1` | বিভাগভিত্তিক সংবাদ |
-| `GET /article/{id}` | পূর্ণ article |
-| `GET /article/{id}/related?limit=5` | সম্পর্কিত সংবাদ |
-| `GET /search?q={query}` | বাংলা/ইংরেজি অনুসন্ধান |
+| Endpoint                            | ব্যবহার                     |
+| ----------------------------------- | --------------------------- |
+| `GET /health`                       | API health check            |
+| `GET /categories`                   | Navigation categories       |
+| `GET /news/sections`                | হোমপেজের editorial sections |
+| `GET /news/latest?limit=5`          | ব্রেকিং ও সর্বশেষ খবর       |
+| `GET /news/most-read`               | সর্বাধিক পঠিত সংবাদ         |
+| `GET /news?limit=10`                | সাধারণ সংবাদ feed           |
+| `GET /category/{slug}?page=1`       | বিভাগভিত্তিক সংবাদ          |
+| `GET /article/{id}`                 | পূর্ণ article               |
+| `GET /article/{id}/related?limit=5` | সম্পর্কিত সংবাদ             |
+| `GET /search?q={query}`             | বাংলা/ইংরেজি অনুসন্ধান      |
 
 `URLSearchParams` দিয়ে search query encode করা হয়। Publisher/source নাম [`src/lib/utils.ts`](./src/lib/utils.ts)-এর `formatNewsSource` ও `sanitizeNewsArticle(s)` দিয়ে normalize হয়; ফলে third-party source নাম UI-তে প্রকাশিত হয় না।
 
@@ -125,12 +124,6 @@ src/
 - Route-গুলোর জন্য loading skeleton, empty state এবং error handling রয়েছে।
 - Theme toggle-এর পাশাপাশি browser-এর system theme-ও প্রাথমিক পছন্দ হিসেবে ব্যবহৃত হয়।
 
-### SutonnyOMJ বাংলা ফন্ট
+### Font configuration
 
-`SutonnyOMJ` বাংলা typography-র primary font হিসেবে সেট করা আছে। নিজস্ব, Unicode-compatible এবং ব্যবহারের অনুমতিযুক্ত font file যোগ করতে `public/fonts/`-এ নিচের যেকোনো একটি নাম ব্যবহার করুন:
-
-- `SutonnyOMJ.woff2` (প্রস্তাবিত)
-- `SutonnyOMJ.ttf`
-
-Font file না থাকলে সাইট স্বয়ংক্রিয়ভাবে `Hind Siliguri` fallback ব্যবহার করবে। `SutonnyMJ` ANSI-encoded file ব্যবহার করলে বাংলা Unicode text ঠিকমতো নাও দেখাতে পারে; তাই Unicode-compatible `SutonnyOMJ` ব্যবহার করুন।
-
+The site uses `Noto Sans Bengali` as its only configured font, loaded with `next/font/google`.

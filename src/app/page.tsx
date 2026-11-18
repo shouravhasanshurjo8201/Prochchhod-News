@@ -153,7 +153,7 @@ export default async function HomePage() {
                 খবরের ভিড়ে, সত্যের প্রতিচ্ছবি।
               </p>
               <p className="mt-2 text-sm leading-6 text-muted">
-                Thoughtful reporting for a clearer view of the world.
+                বিশ্বকে আরও স্পষ্টভাবে দেখার জন্য সুচিন্তিত প্রতিবেদন।{" "}
               </p>
             </div>
           </div>

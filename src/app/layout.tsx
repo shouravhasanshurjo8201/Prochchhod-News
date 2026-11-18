@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Hind_Siliguri, Plus_Jakarta_Sans } from "next/font/google";
+import { Noto_Sans_Bengali } from "next/font/google";
 import { getCategories } from "@/lib/api";
 import type { NewsCategory } from "@/types/news";
 import Header from "@/components/layout/Header";
@@ -7,16 +7,10 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
-const hind = Hind_Siliguri({
+const notoSansBengali = Noto_Sans_Bengali({
   weight: ["400", "500", "600", "700"],
   subsets: ["bengali", "latin"],
-  variable: "--font-hind-fallback",
-  display: "swap",
-});
-
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-jakarta",
+  variable: "--font-noto-sans-bengali",
   display: "swap",
 });
 
@@ -64,7 +58,7 @@ export default async function RootLayout({
   return (
     <html
       lang="bn"
-      className={`${hind.variable} ${jakarta.variable}`}
+      className={notoSansBengali.variable}
       suppressHydrationWarning
     >
       <body>

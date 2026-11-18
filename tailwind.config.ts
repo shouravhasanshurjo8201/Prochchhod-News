@@ -13,7 +13,7 @@ const config: Config = {
         line: "#deded8",
       },
       fontFamily: {
-        sans: ["var(--font-jakarta)", "var(--font-bengali)", "sans-serif"],
+        sans: ["var(--font-noto-sans-bengali)", "sans-serif"],
         bengali: ["var(--font-bengali)", "sans-serif"],
       },
       boxShadow: {

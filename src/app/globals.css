@@ -2,23 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "SutonnyOMJ";
-  src:
-    local("SutonnyOMJ"),
-    local("Sutonny OMJ"),
-    url("/fonts/SutonnyOMJ.woff2") format("woff2"),
-    url("/fonts/SutonnyOMJ.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
 :root {
   color-scheme: light;
   --article-font-size: 19px;
-  --font-bengali:
-    "SutonnyOMJ", "SutonnyMJ", var(--font-hind-fallback), sans-serif;
+  --font-bengali: var(--font-noto-sans-bengali), sans-serif;
 }
 
 .header-search-trigger {
@@ -53,7 +40,7 @@ body {
   margin: 0;
   background: #f7f6f2;
   color: #1d2427;
-  font-family: var(--font-jakarta), var(--font-bengali), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -126,7 +113,7 @@ input:focus-visible {
 .brand-subtitle {
   margin-top: 7px;
   color: #707779;
-  font-family: var(--font-jakarta), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -409,7 +396,7 @@ input:focus-visible {
   border: 1px solid #c5343c;
   padding: 2px 6px;
   color: #c5343c;
-  font-family: var(--font-jakarta), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -422,7 +409,7 @@ input:focus-visible {
 
 .eyebrow {
   color: #b52c32;
-  font-family: var(--font-jakarta), var(--font-bengali), sans-serif;
+  font-family: var(--font-bengali), sans-serif;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.12em;
