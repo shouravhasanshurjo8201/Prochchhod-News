@@ -43,7 +43,7 @@ export default async function HomePage() {
     (article) => !isExcludedPromoArticle(article),
   );
   const hero = leads[1];
-  const secondary = leads.slice(2, 4);
+  const secondary = leads.slice(2, 5);
   const categorySections = sections.filter(
     (section) =>
       section.articles?.length &&
@@ -85,25 +85,28 @@ export default async function HomePage() {
           </span>
         </div>
 
-        <section className="home-lead-grid">
-          <div className="min-w-0">
+        <section className="home-lead-grid items-stretch">
+          <div className="flex min-w-0 flex-col">
             <HeroLead article={hero} />
           </div>
-          <div className="flex flex-col justify-between gap-6 border-t border-line pt-5 dark:border-white/10 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
-            <div>
+          <div className="flex h-full flex-col justify-between gap-6 border-t border-line pt-5 dark:border-white/10 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
+            <div className="flex flex-1 flex-col">
               <p className="eyebrow mb-4">নির্বাচিত খবর</p>
-              <div className="space-y-5 divide-y divide-line dark:divide-white/10">
+              <div className="flex flex-1 flex-col justify-between divide-y divide-line dark:divide-white/10">
                 {secondary.map((article) => (
-                  <div key={article.id} className="pt-4 first:pt-0">
+                  <div key={article.id} className="py-3.5 first:pt-0 last:pb-0">
                     <NewsCard article={article} horizontal />
                   </div>
                 ))}
                 {!secondary.length &&
                   feed
                     .filter((article) => !isExcludedPromoArticle(article))
-                    .slice(0, 4)
+                    .slice(0, 3)
                     .map((article) => (
-                      <div key={article.id} className="pt-4 first:pt-0">
+                      <div
+                        key={article.id}
+                        className="py-3.5 first:pt-0 last:pb-0"
+                      >
                         <NewsCard article={article} horizontal />
                       </div>
                     ))}
@@ -113,7 +116,7 @@ export default async function HomePage() {
               href="/search"
               className="inline-flex items-center gap-2 self-start text-xs font-semibold text-accent"
             >
-              সব খবর পড়ুন <ArrowRight size={14} />
+              প্রচ্ছদ খবর খুঁজুন <ArrowRight size={14} />
             </Link>
           </div>
         </section>

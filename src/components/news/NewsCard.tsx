@@ -38,7 +38,7 @@ export default function NewsCard({
             {article.title}
           </h3>
         </Link>
-        {article.description && (
+        {!horizontal && article.description && (
           <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted">
             {article.description}
           </p>
