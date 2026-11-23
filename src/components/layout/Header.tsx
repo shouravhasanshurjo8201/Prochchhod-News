@@ -3,14 +3,7 @@ import { Search } from "lucide-react";
 import ThemeToggle from "@/components/layout/ThemeToggle";
 import SearchBar from "@/components/ui/SearchBar";
 import { formatLongDate } from "@/lib/utils";
-
-function dhakaTime(): string {
-  return new Intl.DateTimeFormat("bn-BD", {
-    hour: "numeric",
-    minute: "2-digit",
-    timeZone: "Asia/Dhaka",
-  }).format(new Date());
-}
+import DhakaClock from "./DhakaClock";
 
 export default function Header() {
   return (
@@ -22,7 +15,7 @@ export default function Header() {
             <span aria-hidden="true" className="text-line">
               /
             </span>
-            <span>{dhakaTime()} - বাংলাদেশ সময়</span>
+            <DhakaClock />
             <span className="hidden sm:inline">
               <span aria-hidden="true" className="mx-2 text-line">
                 /
