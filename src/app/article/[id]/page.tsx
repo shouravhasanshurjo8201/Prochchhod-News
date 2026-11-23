@@ -237,7 +237,11 @@ export default async function ArticlePage({ params }: Props) {
                   {item.title}
                 </h3>
                 <span className="mt-3 text-xs text-muted">
-                  {formatNewsSource(item.source)}
+                  <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <span>{formatNewsSource(article.source)}</span>
+                    <span aria-hidden="true">·</span>
+                    <span>{formatDate(article.firstPublished)}</span>
+                  </span>
                 </span>
               </Link>
             ))}
