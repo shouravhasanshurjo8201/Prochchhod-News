@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getCategories, getCategoryNews, NewsApiError } from "@/lib/api";
-import NewsCard from "@/components/news/NewsCard";
-import LoadMoreButton from "@/components/ui/LoadMoreButton";
+import InfiniteCategoryFeed from "@/components/news/InfiniteCategoryFeed";
 import type { NewsCategory } from "@/types/news";
 
 export const revalidate = 120;
@@ -54,19 +53,12 @@ export default async function CategoryPage({ params }: Props) {
         <p className="mt-3 text-sm text-muted">এই বিভাগের সর্বশেষ প্রতিবেদন </p>
       </div>
       {result.data.length ? (
-        <>
-          <div className="grid grid-cols-1 gap-x-7 gap-y-10 border-t border-line pt-8 dark:border-white/10 md:grid-cols-2 lg:grid-cols-3">
-            {result.data.map((article) => (
-              <NewsCard key={article.id} article={article} />
-            ))}
-          </div>
-          <LoadMoreButton
-            slug={slug}
-            page={result.page}
-            pageCount={result.pageCount}
-            initialArticles={result.data}
-          />
-        </>
+        <InfiniteCategoryFeed
+          slug={slug}
+          initialPage={result.page}
+          pageCount={result.pageCount}
+          initialArticles={result.data}
+        />
       ) : (
         <div className="empty-state border-t border-line py-20 dark:border-white/10">
           <p className="font-bengali text-2xl">এই বিভাগে এখনো কোনো খবর নেই</p>

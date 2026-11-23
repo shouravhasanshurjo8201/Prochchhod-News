@@ -85,10 +85,3 @@ export interface NewsImageProps {
   sizes?: string;
   priority?: boolean;
 }
-
-export interface LoadMoreButtonProps {
-  slug: string;
-  page: number;
-  pageCount: number;
-  initialArticles: NewsArticle[];
-}
