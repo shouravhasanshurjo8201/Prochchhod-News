@@ -3,6 +3,8 @@ import { searchNews } from "@/lib/api";
 import SearchResults from "@/components/news/SearchResults";
 import type { NewsArticle } from "@/types/news";
 
+export const revalidate = 120;
+
 export const metadata: Metadata = {
   title: "খবর খুঁজুন",
   description: "বাংলা ও ইংরেজিতে খবর অনুসন্ধান করুন।",

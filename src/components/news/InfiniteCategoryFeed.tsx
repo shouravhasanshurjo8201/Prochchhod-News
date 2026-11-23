@@ -42,7 +42,6 @@ export default function InfiniteCategoryFeed({
 
     try {
       const response = await fetch(`/api/category-news?${params.toString()}`, {
-        cache: "no-store",
         headers: { Accept: "application/json" },
       });
 

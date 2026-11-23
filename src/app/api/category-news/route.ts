@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getCategoryNews, NewsApiError } from "@/lib/api";
 
+export const revalidate = 120;
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const slug = searchParams.get("slug")?.trim();
@@ -17,7 +19,9 @@ export async function GET(request: Request) {
   try {
     const result = await getCategoryNews(slug, page);
     return NextResponse.json(result, {
-      headers: { "Cache-Control": "no-store" },
+      headers: {
+        "Cache-Control": "public, s-maxage=120, stale-while-revalidate=120",
+      },
     });
   } catch (error) {
     console.error(`Could not load category ${slug}, page ${page}:`, error);
