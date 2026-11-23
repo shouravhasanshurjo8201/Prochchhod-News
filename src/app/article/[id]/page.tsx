@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Clock3 } from "lucide-react";
-import { getArticle, getRelatedArticles, NewsApiError } from "@/lib/api";
+import {
+  getArticle,
+  getMostRead,
+  getRelatedArticles,
+  NewsApiError,
+} from "@/lib/api";
 import {
   formatDate,
   formatNewsSource,
@@ -12,6 +17,7 @@ import NewsImage from "@/components/ui/NewsImage";
 import NewsCard from "@/components/news/NewsCard";
 import ArticleTools from "@/components/article/ArticleTools";
 import type { ArticleBlock, NewsArticle } from "@/types/news";
+import Link from "next/link";
 
 export const revalidate = 120;
 
@@ -97,10 +103,19 @@ export default async function ArticlePage({ params }: Props) {
   }
 
   let related: NewsArticle[] = [];
+  let mostRead: NewsArticle[] = [];
+
   try {
     related = await getRelatedArticles(id, 4);
   } catch (error) {
     console.error(`Could not load related articles for ${id}:`, error);
+  }
+
+  try {
+    const mostReadData = await getMostRead();
+    mostRead = mostReadData.filter((item) => item.id !== id).slice(1, 9);
+  } catch (error) {
+    console.error(`Could not load most read articles for ${id}:`, error);
   }
 
   const blocks = article.body?.length
@@ -144,7 +159,7 @@ export default async function ArticlePage({ params }: Props) {
               </span>
             ) : null}
             <span className="flex items-center gap-1.5">
-              <Clock3 size={14} /> {readingMinutes} মিনিট পড়ুন
+              <Clock3 size={14} /> {readingMinutes} মিনিট পড়ুন
             </span>
           </div>
           <ArticleTools />
@@ -174,7 +189,7 @@ export default async function ArticlePage({ params }: Props) {
           {blocks.map((block, index) => renderBlock(block, index))}
           {!blocks.length && (
             <p className="text-sm text-muted">
-              এই প্রতিবেদনের বিস্তারিত পাওয়া যায়নি।
+              এই প্রতিবেদনের বিস্তারিত পাওয়া যায়নি।
             </p>
           )}
           {article.tags && article.tags.length > 0 && (
@@ -199,6 +214,32 @@ export default async function ArticlePage({ params }: Props) {
           <div className="grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {related.map((item) => (
               <NewsCard key={item.id} article={item} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {mostRead.length > 0 && (
+        <section className="editorial-section">
+          <div className="section-heading">
+            <div>
+              <p className="section-title">সবচেয়ে পঠিত</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+            {mostRead.slice(0, 8).map((item) => (
+              <Link
+                key={item.id}
+                href={`/article/${item.id}`}
+                className="group flex flex-col justify-between  pt-4"
+              >
+                <h3 className="font-bengali text-base font-semibold leading-7 text-ink transition-colors group-hover:text-accent dark:text-white">
+                  {item.title}
+                </h3>
+                <span className="mt-3 text-xs text-muted">
+                  {formatNewsSource(item.source)}
+                </span>
+              </Link>
             ))}
           </div>
         </section>
