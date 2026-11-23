@@ -14,6 +14,22 @@ import SectionBlock from "@/components/news/SectionBlock";
 
 export const revalidate = 120;
 
+const isExcludedPromoArticle = (article: {
+  title?: string | null;
+  imageUrl?: string | null;
+  imageAlt?: string | null;
+}) => {
+  const title = article.title?.trim() ?? "";
+  const imageAlt = article.imageAlt?.trim() ?? "";
+  const imageUrl = article.imageUrl ?? "";
+
+  return (
+    title === "BBC World Service অ্যাপ-এর নতুন ঠিকানায় স্বাগতম" ||
+    imageAlt === "বিবিসি ওয়ার্ল্ড সার্ভিস লোগো" ||
+    imageUrl.includes("5b1adaa0-d753-11f1-8bf4-5f3ca896096e")
+  );
+};
+
 export default async function HomePage() {
   const [sections, latest, mostRead, feed] = await Promise.all([
     getNewsSections(),
@@ -23,7 +39,9 @@ export default async function HomePage() {
   ]);
   const leadSection =
     sections.find((section) => section.title === "প্রধান খবর") ?? sections[0];
-  const leads = leadSection?.articles ?? feed;
+  const leads = (leadSection?.articles ?? feed).filter(
+    (article) => !isExcludedPromoArticle(article),
+  );
   const hero = leads[1];
   const secondary = leads.slice(2, 4);
   const categorySections = sections.filter(
@@ -32,7 +50,7 @@ export default async function HomePage() {
       !["প্রধান খবর", "নির্বাচিত খবর"].includes(section.title) &&
       !section.title.includes("সামাজিক মাধ্যমে") &&
       !section.title.includes("বিবিসি বাংলা এখন") &&
-      !section.title.includes("হোয়াটসঅ্যাপ") &&
+      !section.title.includes("হোয়াটসঅ্যাপ") &&
       !section.title.includes("ইন্সটাগ্রাম"),
   );
 
@@ -41,7 +59,7 @@ export default async function HomePage() {
       <div className="page-shell py-24">
         <div className="empty-state">
           <p className="font-bengali text-2xl">
-            এই মুহূর্তে খবর পাওয়া যাচ্ছে না
+            এই মুহূর্তে খবর পাওয়া যাচ্ছে না
           </p>
           <p className="mt-2 text-sm text-muted">Please check back soon.</p>
         </div>
@@ -81,18 +99,21 @@ export default async function HomePage() {
                   </div>
                 ))}
                 {!secondary.length &&
-                  feed.slice(0, 2).map((article) => (
-                    <div key={article.id} className="pt-4 first:pt-0">
-                      <NewsCard article={article} horizontal />
-                    </div>
-                  ))}
+                  feed
+                    .filter((article) => !isExcludedPromoArticle(article))
+                    .slice(0, 4)
+                    .map((article) => (
+                      <div key={article.id} className="pt-4 first:pt-0">
+                        <NewsCard article={article} horizontal />
+                      </div>
+                    ))}
               </div>
             </div>
             <Link
               href="/search"
               className="inline-flex items-center gap-2 self-start text-xs font-semibold text-accent"
             >
-              সব খবর পড়ুন <ArrowRight size={14} />
+              সব খবর পড়ুন <ArrowRight size={14} />
             </Link>
           </div>
         </section>
@@ -112,8 +133,11 @@ export default async function HomePage() {
                 sections.find((section) => section.title === "নির্বাচিত খবর")
                   ?.articles ?? []
               )
-                .filter((_, index) => index !== 1)
-                .slice(0, 11)
+                .filter(
+                  (article, index) =>
+                    index !== 1 && !isExcludedPromoArticle(article),
+                )
+                .slice(0, 3)
                 .map((article) => (
                   <NewsCard key={article.id} article={article} />
                 ))}
@@ -137,9 +161,12 @@ export default async function HomePage() {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  {feed.slice(0, 2).map((article) => (
-                    <NewsCard key={article.id} article={article} />
-                  ))}
+                  {feed
+                    .filter((article) => !isExcludedPromoArticle(article))
+                    .slice(0, 2)
+                    .map((article) => (
+                      <NewsCard key={article.id} article={article} />
+                    ))}
                 </div>
               </section>
             )}
@@ -150,7 +177,7 @@ export default async function HomePage() {
             <div className="mt-10 border border-line p-5 dark:border-white/10">
               <p className="eyebrow">দৃষ্টিভঙ্গি </p>
               <p className="mt-4 font-bengali text-xl font-semibold leading-8">
-                খবরের ভিড়ে, সত্যের প্রতিচ্ছবি।
+                খবরের ভিড়ে, সত্যের প্রতিচ্ছবি।
               </p>
               <p className="mt-2 text-sm leading-6 text-muted">
                 বিশ্বকে আরও স্পষ্টভাবে দেখার জন্য সুচিন্তিত প্রতিবেদন।{" "}
