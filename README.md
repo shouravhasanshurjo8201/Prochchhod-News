@@ -1,50 +1,111 @@
 # প্রচ্ছদ নিউজ | Prochchhod News
 
-**সংবাদে স্পষ্ট দৃষ্টিভঙ্গি।**  
-বাংলা ও ইংরেজি পাঠকের জন্য তৈরি একটি আধুনিক, responsive editorial news portal। Next.js App Router, TypeScript, Tailwind CSS এবং Server Actions দিয়ে নির্মিত।
+বাংলা-প্রধান একটি editorial news portal, নির্মিত Next.js App Router, React, TypeScript ও Tailwind CSS দিয়ে। হোমপেজের সম্পাদকীয় বিভাগ, সংবাদ অনুসন্ধান, article details এবং category infinite scroll একটি server-backed news API থেকে ডেটা নেয়।
 
-## বৈশিষ্ট্য
+## কী আছে
 
-- **দ্বিভাষিক অভিজ্ঞতা:** বাংলা সংবাদ ও UI-এর সঙ্গে প্রয়োজনীয় ইংরেজি লেবেল।
-- **সম্পাদকীয় হোমপেজ:** ব্রেকিং টিকার, প্রধান খবর, নির্বাচিত খবর, বিভাগভিত্তিক সংবাদ এবং সর্বাধিক পঠিত তালিকা।
-- **সংবাদ পড়ার সুবিধা:** article details, related stories, reading-time হিসাব, font-size নিয়ন্ত্রণ ও share action।
-- **দ্রুত অনুসন্ধান:** বাংলা ও ইংরেজি query সমর্থনসহ live suggestions ও search results।
-- **বিভাগভিত্তিক pagination:** Server Action ব্যবহার করে Load More।
-- **Light ও Dark theme:** ব্যবহারকারীর theme পছন্দ সংরক্ষিত থাকে।
-- **Responsive layout:** মোবাইল থেকে বড় পর্দা পর্যন্ত অভিযোজিত grid ও touch-friendly controls।
-- **ছবির fallback:** remote image লোড না হলে NewsImage একটি placeholder দেখায়।
-- **SEO ও performance:** Server Components, metadata, Open Graph, dynamic article metadata এবং revalidation।
-- **Publisher consistency:** API-তে আসা যেকোনো publisher/source নাম UI-তে দেখানোর আগে `Prochchhod News` হিসেবে normalize করা হয়।
+- **হোমপেজ editorial layout:** breaking ticker, hero lead, নির্বাচিত খবর, category sections এবং Most Read sidebar।
+- **Promo filtering:** নির্দিষ্ট promotional article, image-alt ও image marker lead ও featured display থেকে বাদ দেওয়া হয়; promo/social section-ও home layout-এ দেখানো হয় না।
+- **Live Dhaka clock:** header-এ `Asia/Dhaka` timezone অনুযায়ী সময় প্রতি সেকেন্ডে আপডেট হয়।
+- **Article details:** structured body blocks, image ও text fallback, tags, estimated reading time, share/font-size controls, related stories এবং Most Read stories।
+- **Category infinite scroll:** page 1 Server Component-এ load হয়; `IntersectionObserver` পরের page `/api/category-news` Route Handler দিয়ে আনে। duplicate article ID বাদ দেওয়া, loading, retry এবং end-of-list state আছে।
+- **Search:** বাংলা/ইংরেজি query, 350ms debounced header suggestions (সর্বোচ্চ 5টি) এবং search results page। client-side search Server Action ব্যবহার করে।
+- **Navigation:** API categories-সহ sticky horizontal navigation; active route `aria-current="page"` ও accent indicator দিয়ে চিহ্নিত।
+- **Theme:** light/dark mode; ব্যবহারকারীর পছন্দ `localStorage`-এ রাখা হয়, আর প্রথমবার browser preference ব্যবহৃত হয়।
+- **Publisher consistency:** article source label সবসময় `Prochchhod News` হিসেবে format করা হয়।
+- **Image fallback:** Next.js `Image`-এর মাধ্যমে remote image optimize করা হয়; image অনুপস্থিত বা ব্যর্থ হলে placeholder দেখা যায়।
+- **Loading ও error states:** home, article, category ও search-এর loading UI; global error এবং not-found pages।
+- **SEO:** site metadata, Open Graph metadata এবং article/category-specific metadata।
+- **Typography ও favicon:** `Noto Sans Bengali` `next/font/google` দিয়ে load হয়; custom SVG icon `src/app/icon.svg`-এ।
 
 ## প্রযুক্তি
 
-| প্রযুক্তি              | ব্যবহার                                                  |
-| ---------------------- | -------------------------------------------------------- |
-| Next.js 15 App Router  | Routing, Server Components, metadata, image optimization |
-| React 19               | UI components                                            |
-| TypeScript             | Typed API ও application code                             |
-| Tailwind CSS 3         | Responsive styling                                       |
-| Next.js Server Actions | Search ও category pagination                             |
-| Noto Sans Bengali      | বাংলা ও ইংরেজি typography                                |
+| প্রযুক্তি | ব্যবহার |
+| --- | --- |
+| Next.js 15 App Router | Routing, Server Components, Route Handlers, metadata ও image optimization |
+| React 19 | UI ও client interactions |
+| TypeScript | API, route ও component types |
+| Tailwind CSS 3 | Responsive utility styling |
+| Next.js Server Actions | Live search; pagination helper |
+| Lucide React | Interface icons |
 
-## শুরু করুন
+## Routes
+
+| Route | কাজ |
+| --- | --- |
+| `/` | Breaking ticker, hero, নির্বাচিত খবর, বিভাগ এবং Most Read |
+| `/article/[id]` | Article details, related ও Most Read sections |
+| `/category/[slug]` | Category details ও infinite-scroll feed |
+| `/search?q=...` | Search results; query `URLSearchParams` দিয়ে encode করা হয় |
+| `/api/category-news?slug=<slug>&page=<n>` | Infinite scroll-এর পরবর্তী category page; API call server-এ থাকে |
+
+Search suggestions ও interactive results `searchNewsAction` Server Action ব্যবহার করে। Category infinite scroll browser থেকে `/api/category-news` Route Handler-এ request করে; handler server-side `getCategoryNews` কল করে, ফলে API base URL client bundle-এ যায় না। `src/actions/newsActions.ts`-এ `loadMoreCategory` helper-টিও রাখা আছে।
+
+## ডেটা ও caching
+
+API client [`src/lib/api.ts`](./src/lib/api.ts)-এ। `NEWS_API_BASE_URL`-এর সঙ্গে নিচের endpoint-গুলো জোড়া হয়:
+
+| Endpoint | ব্যবহারের উদ্দেশ্য |
+| --- | --- |
+| `GET /health` | API health-check helper |
+| `GET /categories` | Header navigation |
+| `GET /news/sections` | Home editorial ও category sections |
+| `GET /news/latest?limit=5` | Breaking ticker |
+| `GET /news/most-read` | Home ও article Most Read sections |
+| `GET /news?limit=10` | Home feed/fallback |
+| `GET /category/{slug}?page={n}` | Category page ও infinite-scroll data |
+| `GET /article/{id}` | Article details |
+| `GET /article/{id}/related?limit={n}` | Related stories |
+| `GET /search?q={query}` | News search |
+
+Home, article, category ও search pages এবং category API Route Handler-এ `revalidate = 120` সেট করা আছে। API data fetch-এ `NEWS_API_REVALIDATE_SECONDS` ব্যবহৃত হয়; এর default `120` সেকেন্ড। Category API response-এ `s-maxage=120` ও `stale-while-revalidate=120` cache headers দেওয়া হয়। `/health` helper ইচ্ছাকৃতভাবে 60 সেকেন্ড revalidation ব্যবহার করে।
+
+## Environment variables
+
+`NEWS_API_BASE_URL` আবশ্যক। এটি API-এর base URL হবে, endpoint path-সহ (যেমন `/api/v2` পর্যন্ত); কোডে শেষের slash থাকলে সরিয়ে নেওয়া হয়। `NEWS_API_REVALIDATE_SECONDS` ঐচ্ছিক এবং integer `0` বা তার বেশি হতে হবে।
+
+Local environment তৈরি করুন:
+
+```bash
+cp .env.example .env.local
+```
+
+`.env.local`-এ `NEWS_API_BASE_URL`-এর placeholder-টি আপনার ব্যবহৃত API base URL দিয়ে বদলান। বর্তমান `.env.example`:
+
+```dotenv
+NEWS_API_BASE_URL=NEWS_API_BASE_URL
+NEWS_API_REVALIDATE_SECONDS=120
+```
+
+উদাহরণস্বরূপ, API base URL যদি `https://api.example.com/api/v2` হয়:
+
+```dotenv
+NEWS_API_BASE_URL=https://api.example.com/api/v2
+NEWS_API_REVALIDATE_SECONDS=120
+```
+
+`https://api.example.com/api/v2` শুধু format বোঝানোর placeholder—নিজের API host ব্যবহার করুন। API base URL অনুপস্থিত হলে API module স্পষ্ট error দেয়; revalidation মান integer না হলে বা ঋণাত্মক হলে configuration error হয়।
+
+## Local development
 
 ### প্রয়োজনীয়তা
 
-- Node.js 20.9 বা তার পরের সংস্করণ
+- Node.js `18.18.0` বা পরবর্তী সমর্থিত সংস্করণ (Next.js 15-এর engine requirement অনুযায়ী)
 - npm
-- News API ব্যবহারের জন্য internet connection
+- সচল News API endpoint
 
-### ইনস্টল ও চালানো
+### Install ও dev server
 
 ```bash
 npm install
+cp .env.example .env.local
+# .env.local-এ API base URL সেট করুন
 npm run dev
 ```
 
-এরপর [http://localhost:3000](http://localhost:3000) খুলুন।
+Development server সাধারণত [http://localhost:3000](http://localhost:3000)-এ পাওয়া যায়।
 
-### Production build
+### Checks ও production
 
 ```bash
 npm run lint
@@ -53,77 +114,53 @@ npm run build
 npm run start
 ```
 
-## উপলভ্য scripts
+`npm run start` চালানোর আগে production build তৈরি করতে হবে।
 
-| Command             | কাজ                                 |
-| ------------------- | ----------------------------------- |
-| `npm run dev`       | Development server চালু করে         |
-| `npm run build`     | Optimized production build তৈরি করে |
-| `npm run start`     | Production server চালু করে          |
-| `npm run lint`      | ESLint দিয়ে কোড পরীক্ষা করে         |
-| `npm run typecheck` | TypeScript type পরীক্ষা করে         |
+| Script | কাজ |
+| --- | --- |
+| `npm run dev` | Next.js development server |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm run build` | Optimized production build |
+| `npm run start` | Production server |
 
-## পৃষ্ঠা ও ব্যবহার
-
-| Route              | বিবরণ                                                         |
-| ------------------ | ------------------------------------------------------------- |
-| `/`                | প্রধান খবর, ব্রেকিং টিকার, বিভাগ ও সর্বাধিক পঠিত              |
-| `/article/[id]`    | পূর্ণ সংবাদ, metadata, পড়ার সময়, font controls ও related news |
-| `/category/[slug]` | বিভাগভিত্তিক সংবাদ ও Load More                                |
-| `/search?q=...`    | বাংলা বা ইংরেজি শব্দ দিয়ে সংবাদ অনুসন্ধান                     |
-
-## API ও ডেটা
-
-API base URL: `https://news........./api/v2`
-
-API fetch, response handling ও revalidation রয়েছে [`src/lib/api.ts`](./src/lib/api.ts)-এ। ব্যবহৃত endpoint:
-
-| Endpoint                            | ব্যবহার                     |
-| ----------------------------------- | --------------------------- |
-| `GET /health`                       | API health check            |
-| `GET /categories`                   | Navigation categories       |
-| `GET /news/sections`                | হোমপেজের editorial sections |
-| `GET /news/latest?limit=5`          | ব্রেকিং ও সর্বশেষ খবর       |
-| `GET /news/most-read`               | সর্বাধিক পঠিত সংবাদ         |
-| `GET /news?limit=10`                | সাধারণ সংবাদ feed           |
-| `GET /category/{slug}?page=1`       | বিভাগভিত্তিক সংবাদ          |
-| `GET /article/{id}`                 | পূর্ণ article               |
-| `GET /article/{id}/related?limit=5` | সম্পর্কিত সংবাদ             |
-| `GET /search?q={query}`             | বাংলা/ইংরেজি অনুসন্ধান      |
-
-`URLSearchParams` দিয়ে search query encode করা হয়। Publisher/source নাম [`src/lib/utils.ts`](./src/lib/utils.ts)-এর `formatNewsSource` ও `sanitizeNewsArticle(s)` দিয়ে normalize হয়; ফলে third-party source নাম UI-তে প্রকাশিত হয় না।
-
-## প্রকল্পের কাঠামো
+## Project structure
 
 ```text
 src/
 ├── actions/
-│   └── newsActions.ts
+│   └── newsActions.ts             # Search action ও category pagination helper
 ├── app/
+│   ├── api/category-news/
+│   │   └── route.ts               # Server-side infinite-scroll endpoint
 │   ├── article/[id]/
+│   │   ├── loading.tsx
+│   │   └── page.tsx
 │   ├── category/[slug]/
+│   │   ├── loading.tsx
+│   │   └── page.tsx
 │   ├── search/
+│   │   ├── loading.tsx
+│   │   └── page.tsx
+│   ├── error.tsx
+│   ├── globals.css
 │   ├── icon.svg
 │   ├── layout.tsx
+│   ├── loading.tsx
+│   ├── not-found.tsx
 │   └── page.tsx
 ├── components/
-│   ├── article/
-│   ├── layout/       # Header, Navbar, Footer, ThemeToggle
-│   ├── news/         # BreakingTicker, HeroLead, NewsCard, sections
-│   └── ui/           # NewsImage, SearchBar, loading ও pagination UI
-├── lib/              # API client ও utility functions
-└── types/            # News API ও article types
+│   ├── article/                   # ArticleTools
+│   ├── layout/                    # Header, DhakaClock, Navbar, Footer, ThemeToggle
+│   ├── news/                      # Hero, cards, sections, search & infinite feed
+│   └── ui/                        # NewsImage, SearchBar
+├── lib/
+│   ├── api.ts                     # Server-side API client ও cache options
+│   └── utils.ts                   # Date, source, image ও reading-time helpers
+└── types/
+    ├── components.ts              # Shared component props
+    ├── news.ts                    # News API/domain models
+    └── routes.ts                  # Route ও global error props
 ```
 
-## গুরুত্বপূর্ণ implementation নোট
-
-- Home, article এবং category page-এর প্রথম ডেটা Server Components-এ fetch হয়।
-- Search এবং Load More-এর interactive request Server Actions দিয়ে সম্পন্ন হয়।
-- API response-এ publisher হিসেবে যা-ই আসুক, প্রকাশিত label `Prochchhod News`-ই থাকে।
-- Remote image host `next.config.ts`-এ অনুমোদিত; image ব্যর্থ হলে fallback placeholder দেখানো হয়।
-- Route-গুলোর জন্য loading skeleton, empty state এবং error handling রয়েছে।
-- Theme toggle-এর পাশাপাশি browser-এর system theme-ও প্রাথমিক পছন্দ হিসেবে ব্যবহৃত হয়।
-
-### Font configuration
-
-The site uses `Noto Sans Bengali` as its only configured font, loaded with `next/font/google`.
+Repository root-এ `next.config.ts` (remote image patterns), `tailwind.config.ts`, `postcss.config.mjs`, `tsconfig.json` ও ESLint configuration রয়েছে।
