@@ -1,16 +1,10 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { articlePath, formatDate, formatNewsSource } from "@/lib/utils";
-import type { NewsArticle } from "@/types/news";
+import type { NewsCardProps } from "@/types/components";
 import NewsImage from "@/components/ui/NewsImage";
 
-export default function NewsCard({
-  article,
-  horizontal = false,
-}: {
-  article: NewsArticle;
-  horizontal?: boolean;
-}) {
+export default function NewsCard({ article, horizontal = false }: NewsCardProps) {
   return (
     <article
       className={`group ${horizontal ? "grid grid-cols-[116px_1fr] gap-4 sm:grid-cols-[160px_1fr]" : ""}`}

@@ -3,12 +3,13 @@ import { notFound } from "next/navigation";
 import { getCategories, getCategoryNews, NewsApiError } from "@/lib/api";
 import InfiniteCategoryFeed from "@/components/news/InfiniteCategoryFeed";
 import type { NewsCategory } from "@/types/news";
+import type { CategoryRouteProps } from "@/types/routes";
 
 export const revalidate = 120;
 
-type Props = { params: Promise<{ slug: string }> };
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: CategoryRouteProps): Promise<Metadata> {
   const { slug } = await params;
   try {
     const category = await getCategoryNews(slug, 1);
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function CategoryPage({ params }: Props) {
+export default async function CategoryPage({ params }: CategoryRouteProps) {
   const { slug } = await params;
   let result;
   try {

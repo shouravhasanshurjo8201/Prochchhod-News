@@ -3,14 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import NewsCard from "@/components/news/NewsCard";
-import type { CategoryPage, NewsArticle } from "@/types/news";
-
-interface InfiniteCategoryFeedProps {
-  slug: string;
-  initialPage: number;
-  pageCount: number;
-  initialArticles: NewsArticle[];
-}
+import type { CategoryPage } from "@/types/news";
+import type { InfiniteCategoryFeedProps } from "@/types/components";
 
 export default function InfiniteCategoryFeed({
   slug,

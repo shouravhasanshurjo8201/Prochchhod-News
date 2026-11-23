@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { articlePath, formatDate, formatNewsSource } from "@/lib/utils";
-import type { NewsArticle } from "@/types/news";
+import type { HeroLeadProps } from "@/types/components";
 import NewsImage from "@/components/ui/NewsImage";
 
-export default function HeroLead({ article }: { article: NewsArticle }) {
+export default function HeroLead({ article }: HeroLeadProps) {
   return (
     <article className="group">
       <Link href={articlePath(article)} className="hero-image image-frame">

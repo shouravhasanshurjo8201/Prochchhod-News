@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { searchNewsAction } from "@/actions/newsActions";
-import type { NewsArticle } from "@/types/news";
+import type { SearchResultsProps } from "@/types/components";
 import SearchBar from "@/components/ui/SearchBar";
 import NewsCard from "@/components/news/NewsCard";
 
@@ -10,11 +10,7 @@ export default function SearchResults({
   query,
   initialResults,
   initialError = "",
-}: {
-  query: string;
-  initialResults: NewsArticle[];
-  initialError?: string;
-}) {
+}: SearchResultsProps) {
   const [results, setResults] = useState(initialResults);
   const [activeQuery, setActiveQuery] = useState(query);
   const [pending, startTransition] = useTransition();

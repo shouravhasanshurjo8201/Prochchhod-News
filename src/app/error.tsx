@@ -1,11 +1,8 @@
 "use client";
 
-export default function ErrorPage({
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+import type { GlobalErrorProps } from "@/types/routes";
+
+export default function ErrorPage({ reset }: GlobalErrorProps) {
   return (
     <div className="page-shell py-24">
       <div className="empty-state">

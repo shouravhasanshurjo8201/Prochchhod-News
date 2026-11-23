@@ -63,25 +63,21 @@ export interface ArticleBlock {
   altText?: string;
 }
 
+export interface ArticleByline {
+  name?: string;
+  title?: string;
+}
+
+export interface ArticleTopic {
+  id: string;
+  name: string;
+}
+
 export interface ArticleDetails extends NewsArticle {
   body?: ArticleBlock[];
   text?: string;
-  byline?: Array<{ name?: string; title?: string }>;
+  byline?: ArticleByline[];
   tags?: string[];
-  topics?: Array<{ id: string; name: string }>;
+  topics?: ArticleTopic[];
   wordCount?: number;
-}
-
-export interface SearchBarProps {
-  initialQuery?: string;
-  compact?: boolean;
-  onSearch?: (query: string) => void;
-}
-
-export interface NewsImageProps {
-  src?: string | null;
-  alt?: string | null;
-  className?: string;
-  sizes?: string;
-  priority?: boolean;
 }

@@ -1,12 +1,8 @@
 import Link from "next/link";
 import { articlePath, formatNewsSource } from "@/lib/utils";
-import type { NewsArticle } from "@/types/news";
+import type { MostReadSidebarProps } from "@/types/components";
 
-export default function MostReadSidebar({
-  articles,
-}: {
-  articles: NewsArticle[];
-}) {
+export default function MostReadSidebar({ articles }: MostReadSidebarProps) {
   return (
     <aside className="border-t-2 border-ink pt-4 dark:border-white/70">
       <div className="flex items-center justify-between gap-2">

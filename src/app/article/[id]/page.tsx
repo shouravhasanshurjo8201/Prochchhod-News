@@ -17,13 +17,14 @@ import NewsImage from "@/components/ui/NewsImage";
 import NewsCard from "@/components/news/NewsCard";
 import ArticleTools from "@/components/article/ArticleTools";
 import type { ArticleBlock, NewsArticle } from "@/types/news";
+import type { ArticleRouteProps } from "@/types/routes";
 import Link from "next/link";
 
 export const revalidate = 120;
 
-type Props = { params: Promise<{ id: string }> };
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ArticleRouteProps): Promise<Metadata> {
   const { id } = await params;
   try {
     const article = await getArticle(id);
@@ -91,7 +92,7 @@ function renderBlock(block: ArticleBlock, index: number) {
   return null;
 }
 
-export default async function ArticlePage({ params }: Props) {
+export default async function ArticlePage({ params }: ArticleRouteProps) {
   const { id } = await params;
   let article;
   try {

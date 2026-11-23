@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, LoaderCircle, Search, X } from "lucide-react";
 import { searchNewsAction } from "@/actions/newsActions";
 import { articlePath } from "@/lib/utils";
-import type { NewsArticle, SearchBarProps } from "@/types/news";
+import type { SearchBarProps } from "@/types/components";
+import type { NewsArticle } from "@/types/news";
 
 export default function SearchBar({
   initialQuery = "",

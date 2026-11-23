@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { ImageIcon } from "lucide-react";
 import { imageUrl } from "@/lib/utils";
-import { NewsImageProps } from "@/types/news";
+import type { NewsImageProps } from "@/types/components";
 
 export default function NewsImage({
   src,

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { searchNews } from "@/lib/api";
 import SearchResults from "@/components/news/SearchResults";
 import type { NewsArticle } from "@/types/news";
+import type { SearchRouteProps } from "@/types/routes";
 
 export const revalidate = 120;
 
@@ -10,9 +11,9 @@ export const metadata: Metadata = {
   description: "বাংলা ও ইংরেজিতে খবর অনুসন্ধান করুন।",
 };
 
-type Props = { searchParams: Promise<{ q?: string | string[] }> };
-
-export default async function SearchPage({ searchParams }: Props) {
+export default async function SearchPage({
+  searchParams,
+}: SearchRouteProps) {
   const params = await searchParams;
   const rawQuery = Array.isArray(params.q) ? params.q[0] : params.q;
   const query = rawQuery?.trim() ?? "";

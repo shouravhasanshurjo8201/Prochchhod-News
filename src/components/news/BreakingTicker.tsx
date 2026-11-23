@@ -1,13 +1,9 @@
 import Link from "next/link";
 import { ArrowUpRight, Radio } from "lucide-react";
 import { articlePath } from "@/lib/utils";
-import type { NewsArticle } from "@/types/news";
+import type { BreakingTickerProps } from "@/types/components";
 
-export default function BreakingTicker({
-  articles,
-}: {
-  articles: NewsArticle[];
-}) {
+export default function BreakingTicker({ articles }: BreakingTickerProps) {
   if (!articles.length) return null;
   return (
     <section className="ticker-wrap" aria-label="সর্বশেষ খবর · Latest news">

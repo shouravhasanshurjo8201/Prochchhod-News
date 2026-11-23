@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
+import type { NavbarProps } from "@/types/components";
 import type { NewsCategory } from "@/types/news";
 
 const fallbackCategories: NewsCategory[] = [
@@ -15,7 +16,7 @@ const fallbackCategories: NewsCategory[] = [
   { slug: "technology", title: "প্রযুক্তি" },
 ];
 
-export default function Navbar({ categories }: { categories: NewsCategory[] }) {
+export default function Navbar({ categories }: NavbarProps) {
   const pathname = usePathname();
   const visible = categories.filter(
     (category) =>

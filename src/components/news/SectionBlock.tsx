@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import type { NewsSection } from "@/types/news";
+import type { SectionBlockProps } from "@/types/components";
 import NewsCard from "@/components/news/NewsCard";
 
 function categoryLink(title: string): string | null {
@@ -15,7 +15,7 @@ function categoryLink(title: string): string | null {
   return mapping[title] ?? null;
 }
 
-export default function SectionBlock({ section }: { section: NewsSection }) {
+export default function SectionBlock({ section }: SectionBlockProps) {
   const articles = section.articles
     .filter((item) => item.title && item.id)
     .slice(0, 4);
